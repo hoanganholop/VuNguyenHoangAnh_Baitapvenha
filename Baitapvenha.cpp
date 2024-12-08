@@ -17,6 +17,7 @@ int main(){
 		printf("9.Sap xep mang theo thu tu tang dan\n");
 		printf("10.Sap xep mang theo thu tu giam dan\n");
 		printf("11.Tim kiem phan tu\n");
+		printf("12. Xoa phan tu trung lap va in phan tu doc nhat\n");
 		printf("13.Sap xep lai mang va hien thi\n");
 		printf("14.Dao nguoc thu tu cua cac phan tu co trong mang\n");
 		printf("15.Thoat\n");
@@ -43,7 +44,43 @@ int main(){
 			    	printf("Phan tu arr[%d] = %d",i,arr[i]);
 			    	printf("\n");
 				}
-				break;	
+				break;
+			case 3:{
+				int count=0;
+	            for (int i=0;i<n;++i){
+	                int sum=1;
+	                for(int j=2;j*j<=arr[i];++j){
+	                    if(arr[i]%j==0){
+	                        sum+=j;
+	                        if(!(arr[i]/j==j))
+	                            sum+=arr[i]/j;
+	                    }
+	                }
+	                if (sum==arr[i]&&arr[i]>=6){
+							count++;
+							printf("%d\n",arr[i]);
+						}
+	            }
+	            printf("So luong so hoan hao: %d", count);
+		        break;
+		    }
+			case 4:{
+				int count=0;
+	        	for(int i=0;i<n;++i){
+	        		int prime=0;
+	        		for(int j=2;j*j<=arr[i];++j){
+	        			if (arr[i]%j==0){
+	        				prime =1;
+	        				break;
+						}
+					}
+					if(!prime && arr[i]>=2){
+						++count;
+					}
+				}
+				printf("So luong cac phan tu la so nguyen to trong mang: %d", count);
+	        	break;
+			}
 			case 5:
 				int max1 ;
 			    int max2 ;
@@ -143,7 +180,67 @@ int main(){
 				for(int i=0;i<n;i++){
 					printf("%d\t",arr[i]);
 				}	
-				break;	
+				break;
+			case 11:{
+				int findValue;
+				int left=0;
+				int right=n-1;
+				int found=-1;
+				printf("Moi ban nhap phan tu can tim: ");
+				scanf("%d", &findValue);
+				while (left<=right) {
+			    	int mid=left+(right-left)/2;
+			        if (arr[mid]==findValue) {
+			            found=mid;
+			            break;
+			        } else if (arr[mid]<findValue) {
+			            left=mid+1;
+			        } else {
+			            right=mid-1;
+			        }
+			    }
+			    if (found!=-1) {
+			        printf("Phan tu %d duoc tim thay tai vi tri thu %d\n", findValue, found);
+			    } else {
+			        printf("Phan tu %d khong co trong mang\n", findValue);
+			    }
+				break;
+			}
+			case 12:
+				for (int i=0; i<n; i++){
+					for (int j=i+1; j<n; j++){
+						if(arr[i]==arr[j]){
+							for (int deleteNumb=j;deleteNumb<n-1;deleteNumb++){
+							  arr[deleteNumb] = arr[deleteNumb + 1]; 
+							}
+							n--;
+							j--;
+						}
+					}
+				}
+				printf("Mang sau khi xoa cac phan tu trung lap: ");
+				for (int i=0; i<n; i++){
+					printf ("%d ",arr[i]);
+			    }
+			    printf ("\n");	
+			    break;
+			case 13:
+				for(int i=0;i<n-1;i++){
+			        for(int j=i+1;j<n;j++) {
+			        	int temp;
+			            if ((arr[i]%2!=0)&&(arr[j]%2==0)){
+			                temp = arr[i];
+			                arr[i] = arr[j];
+			                arr[j] = temp;
+			            }
+			        }
+			    }
+			    printf("Mang sau khi sap xep: ");
+			    for (int i=0;i<n;i++) {
+			        printf("%d ", arr[i]);
+			    }
+			    printf("\n");
+			    break;
 			case 14:
 			    for (int i = 0; i < n / 2; i++) {
 			        int temp = arr[i];
